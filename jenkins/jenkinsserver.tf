@@ -1,7 +1,7 @@
 # configured aws provider with proper credentials
 provider "aws" {
   region    = "us-east-1"
-  profile   = "Oyakhire1"   #change this
+  profile   = "Oyakhire1"   #it is better not to hardcode your credentials.
 }
 
 
