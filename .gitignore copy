@@ -1,0 +1,22 @@
+# Terraform directories
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Crash logs
+crash.log
+
+# Ignore sensitive files
+*.tfvars
+*.env
+
+# Temporary files and logs
+*.log
+*.bak
+*.tmp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
