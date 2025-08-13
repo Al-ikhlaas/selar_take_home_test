@@ -1,0 +1,51 @@
+Project Overview
+
+Remote State & Locking Setup
+The project includes an s3bucket.tf file that provisions:
+
+An S3 bucket for centralized Terraform remote state storage.
+
+A DynamoDB table for state locking to prevent parallel runs from creating conflicting state files.
+This setup aligns with SRE industry best practices for reliability and consistency.
+
+EKS Infrastructure Deployment Pipeline (Jenkins + Terraform)
+
+CI/CD Tool: Jenkins.
+
+Workflow: terraform init → terraform validate → terraform plan → Approval Gate → terraform apply (Production).
+
+This formed an Infrastructure as Code (IaC) pipeline for provisioning an EKS cluster.
+
+The approval gate ensures controlled deployments to production.
+
+Application Deployment Pipeline (Jenkins + Maven + Docker + Helm)
+
+Source: Java web application.
+
+Image Repository: AWS ECR.
+
+Image Builder: Docker.
+
+Package Manager: Helm.
+
+Build Steps:
+
+Compile Java code using Maven.
+
+Run unit tests.
+
+Authenticate with AWS ECR.
+
+Build Docker image.
+
+Push image to ECR.
+
+Deploy image to EKS (DEV) using Helm.
+
+Monitoring & Observability
+
+Tool: Dynatrace (planned).
+
+Purpose: Real-time monitoring, observability, and performance insights for the deployed infrastructure.
+
+Configuration reference available in the kubernetes/dynatrace-observability directory
