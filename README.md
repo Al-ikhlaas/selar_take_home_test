@@ -1,6 +1,6 @@
 # selar_take_home_test
 
-This is solution to quetion 1. The repository contains codes to deploy a sample java application to a kubernetes cluster. Tools used are:
+
 
 Version control ---- Github
 CI/CD----------------Jenkins, so there is a Jenkins fille for build step (workflow)
@@ -24,7 +24,7 @@ Build Docker image – Builds a Docker image for the application and tags it wit
 
 Push to ECR – Tags the local image with the full ECR URI and pushes it to AWS ECR.
 
-Deploy to EKS (DEV) –
+Deploy to EKS
 
 Updates local kubectl config to connect to the myAppp-eks-cluster.
 

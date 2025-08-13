@@ -1,0 +1,66 @@
+
+I would use Dynatrace for observerbility. Why? Dynatrace is a complete stack with AI Powered observerbility.
+
+It offers end-to-end visibility accross kubernetes stack (clusters, nodes, containers)
+
+It provides very accurate metrics, logs and events.
+
+With its AI powered engine Davis, it delivers root cause analysis in real time.
+
+It supports multiple kubertetes services (EKS, AKS, GKE)
+
+Though it is a powerful tool, it is very easy to spin up. However, dynatrace is a bit costly.
+
+                            ACTION PLAN
+To integrate dynatrace with our cluster for observerbility,
+
+1. use helm to deploy the Dynatrace operator. You should get your operator token from the dynatrace UI
+
+helm install dynatrace-operator oci://public.ecr.aws/dynatrace/dynatrace-operator \
+  --set csidriver.enabled=false \
+  --create-namespace \
+  --namespace dynatrace \
+  --atomic
+
+2. Configure dynakube secret to provide credentials for the operator to authenticate with dynatrace
+
+    kubectl -n dynatrace create secret generic dynakube \
+  --from-literal="apiToken=<OPERATOR_TOKEN>"           "Replace <OPERATOR_TOKEN> your token from Dynatrace UI>
+
+
+3. Create a YAML file to apply the Dynakube custom resource. For instance;
+
+        apiVersion: dynatrace.com/v1beta3
+kind: DynaKube
+metadata:
+  name: dynakube
+  namespace: dynatrace
+  annotations:
+    feature.dynatrace.com/k8s-app-enabled: "true"
+spec:
+  apiUrl: "https://<ENVIRONMENTID>.live.dynatrace.com/api"
+  metadataEnrichment:
+    enabled: true
+  activeGate:
+    capabilities:
+      - kubernetes-monitoring
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1
+        memory: 
+        
+
+4. Apply the manifest
+    
+     kubectl apply -f dynakube.yaml
+    
+
+5. Confirm installation
+
+    kubectl get pods -n dynatrace
+
+
+

@@ -106,7 +106,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type          = "t2.xlarge"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_groupk8s.id]
-  key_name               = "Oyakhirekp"   #change this
+  key_name               = "Oyakhirekp"  
   user_data = "${file("install_jenkins.sh")}"
 
   tags = {
